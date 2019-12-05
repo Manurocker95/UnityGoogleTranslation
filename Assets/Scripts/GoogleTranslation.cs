@@ -21,7 +21,7 @@ namespace ManuelRodriguezMatesanz
         public Dropdown m_language2DD;
         public Button m_translateTextButton;
 
-
+        // to add more languages: https://ctrlq.org/code/19899-google-translate-languages
         public Dictionary<SystemLanguage, string> m_availableLanguages = new Dictionary<SystemLanguage, string>()
         {
             { SystemLanguage.Spanish, "es" },
@@ -45,6 +45,11 @@ namespace ManuelRodriguezMatesanz
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 ClickedTranslate();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Application.Quit();
             }
         }
 
@@ -94,14 +99,14 @@ namespace ManuelRodriguezMatesanz
         {
             m_language1DD?.onValueChanged.AddListener(delegate { OnLanguageChange(); });
             m_language2DD?.onValueChanged.AddListener(delegate { OnLanguageChange(); });
-            m_translateTextButton?.onClick.AddListener(delegate { OnLanguageChange(); });
+            m_translateTextButton?.onClick.AddListener(delegate { ClickedTranslate(); });
         }
 
         public void StopListeners()
         {
             m_language1DD?.onValueChanged.RemoveListener(delegate { OnLanguageChange(); });
             m_language2DD?.onValueChanged.RemoveListener(delegate { OnLanguageChange(); });
-            m_translateTextButton?.onClick.RemoveListener(delegate { OnLanguageChange(); });
+            m_translateTextButton?.onClick.RemoveListener(delegate { ClickedTranslate(); });
         }
 
         public void OnLanguageChange()
